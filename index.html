@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Your Name | Portfolio</title>
+  <meta name="description" content="Portfolio of selected projects, case studies and experiments.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=IBM+Plex+Sans:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body id="top">
+  <a class="skip" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <a class="brand" id="brand" href="index.html">Your Name</a>
+    <button class="nav-toggle" id="nav-toggle" aria-expanded="false" aria-controls="site-nav">Menu</button>
+    <nav id="site-nav" class="site-nav" aria-label="Main">
+      <a href="#case-studies">Case studies</a>
+      <a href="#explorations">Explorations</a>
+      <a href="#now">Now</a>
+      <a class="btn btn-small" id="resume-link" href="assets/resume.pdf">Download resume</a>
+    </nav>
+  </header>
+
+  <main id="main">
+    <section class="hero">
+      <div class="hero-text">
+        <h1 id="hero-name">Hi, I'm Your Name</h1>
+        <p class="hero-role" id="hero-role">Software Developer</p>
+        <p class="hero-intro" id="hero-intro"></p>
+        <div class="hero-actions">
+          <a class="btn" href="#case-studies">See my work</a>
+          <div class="social" id="social-links"></div>
+        </div>
+      </div>
+      <div class="hero-art" id="hero-art"></div>
+    </section>
+
+    <section class="section" id="case-studies">
+      <h2>Case studies</h2>
+      <p class="section-sub" id="cs-intro"></p>
+      <div class="case-list" id="case-list"></div>
+    </section>
+
+    <section class="section" id="explorations">
+      <h2>Explorations</h2>
+      <p class="section-sub" id="ex-title"></p>
+      <ul class="ex-grid" id="ex-grid"></ul>
+    </section>
+
+    <section class="section now" id="now">
+      <h2 id="feature-title"></h2>
+      <p id="feature-text"></p>
+      <a class="text-link" id="feature-link" href="#"></a>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p id="footer-text"></p>
+    <a href="#top" class="up">Back to top</a>
+  </footer>
+
+  <script src="js/data.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
