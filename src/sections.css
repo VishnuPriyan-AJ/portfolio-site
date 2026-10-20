@@ -1,0 +1,27 @@
+.approach-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem; margin-top: 2.4rem; }
+.approach-card { border-color: hsl(var(--border) / .8); }
+.approach-card .p-6 { padding: 1.3rem; }
+.approach-number { color: hsl(var(--primary)); font-family: "DM Mono", monospace; font-size: .68rem; }
+.approach-card h3 { margin-top: 1.2rem; font-family: "Manrope", sans-serif; font-size: 1.02rem; font-weight: 700; letter-spacing: -.035em; }
+.approach-card p { min-height: 3.5rem; margin-top: .45rem; color: hsl(var(--muted-foreground)); font-size: .79rem; line-height: 1.7; }
+.approach-card .badge-row { margin-top: 1rem; }
+.approach-card .badge-row > span { font-size: .61rem; }
+.contact-section { display: grid; grid-template-columns: .85fr 1.15fr; align-items: start; gap: 4rem; }
+.contact-intro { padding-top: .35rem; }
+.contact-email { display: inline-flex; align-items: center; gap: .5rem; margin-top: 1.5rem; color: hsl(var(--accent-foreground)); font-size: .82rem; font-weight: 600; }
+.contact-email:hover { text-decoration: underline; text-underline-offset: .25rem; }
+.contact-card { border-color: hsl(var(--border)); }
+.contact-card .p-6 { padding: 1.4rem; }
+.contact-form { display: grid; gap: 1rem; }
+.form-field { display: grid; gap: .4rem; }
+.form-field label { font-size: .75rem; font-weight: 600; }
+.form-field input, .form-field textarea { width: 100%; border: 1px solid hsl(var(--input)); border-radius: .55rem; background: hsl(var(--background)); padding: .7rem .8rem; color: hsl(var(--foreground)); font: inherit; font-size: .8rem; outline: none; transition: border-color .16s, box-shadow .16s; }
+.form-field input::placeholder, .form-field textarea::placeholder { color: hsl(var(--muted-foreground) / .72); }
+.form-field input:focus, .form-field textarea:focus { border-color: hsl(var(--ring)); box-shadow: 0 0 0 3px hsl(var(--ring) / .14); }
+.form-field textarea { min-height: 6rem; resize: vertical; }
+.form-submit { display: flex; flex-wrap: wrap; align-items: center; gap: .8rem; }
+.form-hint { color: hsl(var(--muted-foreground)); font-size: .65rem; }
+.form-feedback { display: flex; align-items: center; gap: .4rem; color: hsl(153 50% 35%); font-size: .75rem; }
+.dark .form-feedback { color: hsl(153 55% 60%); }
+@media (max-width: 900px) { .contact-section { grid-template-columns: 1fr 1fr; gap: 2rem; } }
+@media (max-width: 680px) { .approach-grid { grid-template-columns: 1fr; gap: .75rem; margin-top: 1.7rem; } .approach-card p { min-height: unset; } .contact-section { grid-template-columns: 1fr; gap: 1.6rem; } }
