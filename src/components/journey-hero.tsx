@@ -97,9 +97,9 @@ export function JourneyHero() {
         <div className="autobiography-status"><span>{done ? <><Check size={13} /> Portrait complete</> : <><span className="status-pulse" /> Connecting the dots</>}</span><div className="autobiography-progress" role="progressbar" aria-label="Portrait reveal progress" aria-valuemin={0} aria-valuemax={100} aria-valuenow={Math.round(value * 100)}><span style={{ width: `${value * 100}%` }} /></div><span className="status-count">{String(Math.min(10, Math.floor(value * 10) + (done ? 0 : 1))).padStart(2, "0")} / 10</span></div>
       </div>
       <div className="portrait-column" id="portrait-artwork">
-        <div className="portrait-canvas-heading"><span>THE MAKING OF ME</span><span>{done ? "THE PICTURE, CONNECTED" : "DOT BY DOT"}</span></div>
+        <div className="portrait-canvas-heading"><span>PORTRAIT</span><span>STATIC PLACEHOLDER</span></div>
         <div className="portrait-stage">
-          <PortraitArt progress={progress} milestones={journeyMilestones} activeMilestone={selected} revealComplete={done} onSelect={setSelected} onHover={setHovered} />
+          <PortraitArt milestones={journeyMilestones} activeMilestone={selected} revealComplete={done} onSelect={setSelected} onHover={setHovered} />
           <AnimatePresence mode="wait">
             {displayedStory ? <DetailCard key={`detail-${displayedStory.number}`} story={displayedStory} close={() => { setSelected(null); setHovered(null) }} /> : !done && autoStory && !reducedMotion ? <AutoCard key={`auto-${autoStory.number}`} story={autoStory} /> : done ? <motion.div key="complete-note" className="portrait-complete-note" initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }}><Sparkles size={13} /> Every dot belongs.</motion.div> : null}
           </AnimatePresence>
