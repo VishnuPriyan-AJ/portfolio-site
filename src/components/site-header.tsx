@@ -34,7 +34,6 @@ export function SiteHeader({ project = false }: { project?: boolean }) {
   const home = project ? "index.html" : ""
   const links = [
     { href: `${home}#case-studies`, label: "Work" },
-    { href: `${home}#about`, label: "About" },
     { href: `${home}#explorations`, label: "Explorations" },
     { href: `${home}#contact`, label: "Contact" },
   ]

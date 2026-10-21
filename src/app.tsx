@@ -9,7 +9,6 @@ import { SectionHeading } from "@/components/section-heading"
 import { SiteFooter } from "@/components/site-footer"
 import { SiteHeader } from "@/components/site-header"
 import { JourneyHero } from "@/components/journey-hero"
-import { journeyMilestones } from "@/journey"
 
 
 export function HomePage() {
@@ -18,20 +17,6 @@ export function HomePage() {
     <div id="top"><SiteHeader /></div>
     <main id="main">
       <JourneyHero />
-
-      <section className="container-shell section-block about-section" id="about" aria-labelledby="about-title">
-        <div className="about-copy"><SectionHeading eyebrow="A little about me" title="Good software starts with understanding." id="about-title" /><p className="about-description">{site.intro}</p><p className="about-description muted">I enjoy connecting the dots between product intent and technical detail—building systems that feel simple to use and are thoughtful under the hood.</p></div>
-        <div className="stats-grid" aria-label="Experience at a glance">
-          <Card className="stat-card"><CardContent><span className="stat-number">10</span><span className="stat-label">Moments connected</span></CardContent></Card>
-          <Card className="stat-card"><CardContent><span className="stat-number stat-word">Full<span>.</span></span><span className="stat-label">Backend &amp; full-stack</span></CardContent></Card>
-          <Card className="stat-card stat-card-wide"><CardContent><span className="stat-number stat-word">Curious<span>.</span></span><span className="stat-label">Always learning, always iterating</span></CardContent></Card>
-        </div>
-      </section>
-
-      <section className="container-shell section-block origin-story-section" aria-labelledby="origin-story-title">
-        <div className="section-topline"><SectionHeading eyebrow="The connected story" title="One person. Ten moments that changed the way I see." description="Every chapter left something behind: a way to notice, to shape space, or to make complex systems feel human." id="origin-story-title" /></div>
-        <div className="origin-story-grid">{journeyMilestones.map((milestone) => <article className={`origin-story-card origin-${milestone.chapter.toLowerCase()}`} key={milestone.number}><span className="origin-story-number">{String(milestone.number).padStart(2, "0")}</span><div><Badge className="origin-chapter">{milestone.chapter}</Badge><h3>{milestone.title}</h3><p>{milestone.lesson}</p><div className="origin-skills">{milestone.skills.slice(0, 3).map((skill) => <span key={skill}>{skill}</span>)}</div></div></article>)}</div>
-      </section>
 
       <section className="container-shell section-block work-section" id="case-studies" aria-labelledby="work-title">
         <div className="section-topline"><SectionHeading eyebrow="Selected work" title="A few things I’ve helped bring to life." description={site.caseStudiesIntro} id="work-title" /><span className="section-count">01 — 04</span></div>
