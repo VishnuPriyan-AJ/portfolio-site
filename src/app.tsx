@@ -1,5 +1,5 @@
 import { useState, type FormEvent } from "react"
-import { ArrowRight, ArrowUpRight, Check, Mail, Send, Sparkles } from "lucide-react"
+import { Check, Mail, Send, Sparkles } from "lucide-react"
 import { site } from "@/data"
 import { Badge } from "@/components/ui/badge"
 import { Button, ButtonLink } from "@/components/ui/button"
@@ -22,7 +22,7 @@ export function HomePage() {
         <div className="section-topline"><SectionHeading eyebrow="Selected work" title="A few things I’ve helped bring to life." description={site.caseStudiesIntro} id="work-title" /><span className="section-count">01 — 04</span></div>
         <div className="projects-grid">{site.caseStudies.map((project, index) => <Card className="project-card" key={project.slug}>
           <a className="project-cover-link" href={`project.html?slug=${encodeURIComponent(project.slug)}`} aria-label={`View ${project.title} case study`}><ProjectCover project={project} index={index} /></a>
-          <CardContent className="project-card-content"><div className="project-card-meta"><span>0{index + 1} / CASE STUDY</span><ArrowUpRight size={16} aria-hidden="true" /></div><h3>{project.title}</h3><p>{project.summary}</p><div className="badge-row">{project.tags.map((tag) => <Badge key={tag}>{tag}</Badge>)}</div><a className="project-link" href={`project.html?slug=${encodeURIComponent(project.slug)}`}>Read case study <ArrowRight size={15} /></a></CardContent>
+          <CardContent className="project-card-content"><div className="project-card-meta"><span>0{index + 1} / CASE STUDY</span></div><h3>{project.title}</h3><p>{project.summary}</p><div className="badge-row">{project.tags.map((tag) => <Badge key={tag}>{tag}</Badge>)}</div><a className="project-link" href={`project.html?slug=${encodeURIComponent(project.slug)}`}>Read case study</a></CardContent>
         </Card>)}</div>
       </section>
 
@@ -39,13 +39,13 @@ export function HomePage() {
         <div className="section-topline"><SectionHeading eyebrow="Beyond the brief" title="Small experiments. Big curiosity." description={site.explorationsTitle} id="explorations-title" /><Badge className="quiet-badge">A work in progress</Badge></div>
         <div className="explorations-grid">{site.explorations.map((item, index) => {
           const project = { title: item.title, image: "" }
-          return <a className="exploration-item" href={item.url} key={item.title}><div className="exploration-cover"><ProjectCover project={project} index={index} square /><span className="exploration-open"><ArrowUpRight size={15} /></span></div><div className="exploration-label"><span><strong>{item.title}</strong><small>{item.tag}</small></span><ArrowUpRight size={15} /></div></a>
+          return <a className="exploration-item" href={item.url} key={item.title}><div className="exploration-cover"><ProjectCover project={project} index={index} square /></div><div className="exploration-label"><span><strong>{item.title}</strong><small>{item.tag}</small></span></div></a>
         })}</div>
       </section>
 
       <ContactSection />
 
-      <section className="container-shell now-section" id="now" aria-labelledby="now-title"><Card className="now-card"><CardContent className="now-content"><div className="now-icon"><Sparkles size={19} /></div><div className="now-copy"><Badge className="section-eyebrow">A note from now</Badge><h2 id="now-title">{site.feature.title}</h2><p>{site.feature.text}</p></div><ButtonLink href={site.feature.url} variant="outline">{site.feature.linkLabel} <ArrowUpRight size={15} /></ButtonLink></CardContent></Card></section>
+      <section className="container-shell now-section" id="now" aria-labelledby="now-title"><Card className="now-card"><CardContent className="now-content"><div className="now-icon"><Sparkles size={19} /></div><div className="now-copy"><Badge className="section-eyebrow">A note from now</Badge><h2 id="now-title">{site.feature.title}</h2><p>{site.feature.text}</p></div><ButtonLink href={site.feature.url} variant="outline">{site.feature.linkLabel}</ButtonLink></CardContent></Card></section>
     </main>
     <SiteFooter />
   </>
@@ -67,7 +67,7 @@ function ContactSection() {
   }
 
   return <section className="container-shell section-block contact-section" id="contact" aria-labelledby="contact-title">
-    <div className="contact-intro"><SectionHeading eyebrow="Let’s talk" title="Have a good problem to solve?" description="Tell me a little about what you’re working on. I’d love to hear from you." id="contact-title" /><a className="contact-email" href={`mailto:${site.email}`}><Mail size={16} /> {site.email} <ArrowUpRight size={14} /></a></div>
+    <div className="contact-intro"><SectionHeading eyebrow="Let’s talk" title="Have a good problem to solve?" description="Tell me a little about what you’re working on. I’d love to hear from you." id="contact-title" /><a className="contact-email" href={`mailto:${site.email}`}><Mail size={16} /> {site.email}</a></div>
     <Card className="contact-card"><CardContent><form className="contact-form" onSubmit={handleSubmit}>
       <div className="form-field"><label htmlFor="contact-name">Your name</label><input id="contact-name" name="name" autoComplete="name" placeholder="Alex Morgan" minLength={2} required /></div>
       <div className="form-field"><label htmlFor="contact-email">Email address</label><input id="contact-email" name="email" type="email" autoComplete="email" placeholder="alex@company.com" required /></div>
@@ -95,14 +95,14 @@ export function ProjectPage() {
     <div id="top"><SiteHeader project /></div>
     <main id="main" className="container-shell project-main">
       {project ? <article className="project-article">
-        <a className="back-link" href="index.html#case-studies"><ArrowRight size={15} /> All case studies</a>
+        <a className="back-link" href="index.html#case-studies">All case studies</a>
         <Badge className="section-eyebrow">Case study / {project.tags[0]}</Badge>
         <h1>{project.title}</h1><p className="project-lede">{project.summary}</p>
         <div className="project-hero-cover"><ProjectCover project={project} index={site.caseStudies.indexOf(project)} /></div>
         <div className="project-article-body">{project.sections.map((section) => <section key={section.heading}><h2>{section.heading}</h2><p>{section.body}</p></section>)}
-          <Card className="project-next"><CardContent><div><span className="project-next-label">HAVE A SIMILAR CHALLENGE?</span><h2>Let’s make it clearer.</h2></div><ButtonLink href={`mailto:${site.email}`}>Start a conversation <ArrowUpRight size={15} /></ButtonLink></CardContent></Card>
+          <Card className="project-next"><CardContent><div><span className="project-next-label">HAVE A SIMILAR CHALLENGE?</span><h2>Let’s make it clearer.</h2></div><ButtonLink href={`mailto:${site.email}`}>Start a conversation</ButtonLink></CardContent></Card>
         </div>
-      </article> : <Card className="not-found-card"><CardContent><Badge className="section-eyebrow">404 / Not found</Badge><h1>That case study isn’t here.</h1><p>The link may be outdated. Head back to the selected work to find another project.</p><ButtonLink href="index.html#case-studies">Back to selected work <ArrowRight size={16} /></ButtonLink></CardContent></Card>}
+      </article> : <Card className="not-found-card"><CardContent><Badge className="section-eyebrow">404 / Not found</Badge><h1>That case study isn’t here.</h1><p>The link may be outdated. Head back to the selected work to find another project.</p><ButtonLink href="index.html#case-studies">Back to selected work</ButtonLink></CardContent></Card>}
     </main>
     <SiteFooter />
   </>

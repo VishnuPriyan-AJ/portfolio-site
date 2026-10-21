@@ -1,6 +1,6 @@
 import { AnimatePresence, animate, motion, useMotionValue, useReducedMotion } from "framer-motion"
 import { useEffect, useState } from "react"
-import { ArrowDown, ArrowRight, ArrowUpRight, Check, Sparkles, X } from "lucide-react"
+import { Check, Sparkles, X } from "lucide-react"
 import { journeyMilestones, type JourneyMilestone } from "@/journey"
 import { PortraitArt } from "@/components/portrait-art"
 import { Badge } from "@/components/ui/badge"
@@ -88,10 +88,10 @@ export function JourneyHero() {
           {finalIndex < 0 ? <motion.div key="opening" className="hero-opening-copy" initial={{ opacity: 0, y: 9 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -8 }}>
             <h1 id="journey-title">From Stories<br />to Spaces<br />to <span>Systems.</span></h1>
             <p className="autobiography-lede">Every experience added a new point. Only when the dots connected did the picture emerge.</p>
-            <div className="autobiography-actions"><button className="journey-primary-action" type="button" onClick={explore}>Explore My Journey <ArrowDown size={16} /></button><ButtonLink href="#case-studies" variant="outline">View My Work <ArrowUpRight size={16} /></ButtonLink></div>
+            <div className="autobiography-actions"><button className="journey-primary-action" type="button" onClick={explore}>Explore My Journey</button><ButtonLink href="#case-studies" variant="outline">View My Work</ButtonLink></div>
           </motion.div> : <motion.div key={`finale-${finalIndex}`} className="hero-finale-copy" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -8 }}>
             <h1 id="journey-title" className={finalIndex < 3 ? "finale-headline" : "finale-line"} aria-live="polite">{finale[finalIndex]}</h1>
-            {done && <div className="autobiography-actions"><ButtonLink href="#case-studies">Explore selected work <ArrowRight size={16} /></ButtonLink><button className="replay-link" type="button" onClick={() => { setSelected(null); setReplay((n) => n + 1) }}>Replay story <ArrowRight size={14} /></button></div>}
+            {done && <div className="autobiography-actions"><ButtonLink href="#case-studies">Explore selected work</ButtonLink><button className="replay-link" type="button" onClick={() => { setSelected(null); setReplay((n) => n + 1) }}>Replay story</button></div>}
           </motion.div>}
         </AnimatePresence>
         <div className="autobiography-status"><span>{done ? <><Check size={13} /> Portrait complete</> : <><span className="status-pulse" /> Connecting the dots</>}</span><div className="autobiography-progress" role="progressbar" aria-label="Portrait reveal progress" aria-valuemin={0} aria-valuemax={100} aria-valuenow={Math.round(value * 100)}><span style={{ width: `${value * 100}%` }} /></div><span className="status-count">{String(Math.min(10, Math.floor(value * 10) + (done ? 0 : 1))).padStart(2, "0")} / 10</span></div>
@@ -107,6 +107,6 @@ export function JourneyHero() {
         <div className="portrait-stage-footer"><span>01 <i>STORIES</i></span><span className="stage-track"><span className="track-stories" /><span className="track-spaces" /><span className="track-systems" /></span><span>03 <i>SYSTEMS</i></span></div>
       </div>
     </div>
-    <div className="autobiography-bottomline"><span>CHILDHOOD → ARCHITECTURE → PRODUCT DESIGN</span><span>SCROLL TO MEET THE WORK <ArrowDown size={12} /></span></div>
+    <div className="autobiography-bottomline"><span>CHILDHOOD · ARCHITECTURE · PRODUCT DESIGN</span><span>SCROLL TO MEET THE WORK</span></div>
   </section>
 }

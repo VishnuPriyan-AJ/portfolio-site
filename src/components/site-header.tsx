@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { ArrowUpRight, Menu, Moon, Sun, X } from "lucide-react"
+import { Menu, Moon, Sun, X } from "lucide-react"
 import { site } from "@/data"
 import { ButtonLink } from "@/components/ui/button"
 
@@ -49,7 +49,7 @@ export function SiteHeader({ project = false }: { project?: boolean }) {
           {links.map((link) => <a className="nav-link" key={link.href} href={link.href}>{link.label}</a>)}
           <ThemeToggle />
           <ButtonLink className="ml-2" size="sm" variant="outline" href={site.resumeUrl}>
-            Resume <ArrowUpRight size={15} aria-hidden="true" />
+            Resume
           </ButtonLink>
         </nav>
         <div className="flex items-center gap-2 md:hidden"><ThemeToggle /><button
@@ -65,7 +65,7 @@ export function SiteHeader({ project = false }: { project?: boolean }) {
       </div>
       {open && <nav id="mobile-navigation" className="mobile-navigation border-t border-border bg-background p-4 md:hidden" aria-label="Mobile navigation">
         {links.map((link) => <a className="mobile-nav-link" key={link.href} href={link.href} onClick={() => setOpen(false)}>{link.label}</a>)}
-        <ButtonLink className="mt-2 w-full" size="sm" variant="outline" href={site.resumeUrl}>Download resume <ArrowUpRight size={15} /></ButtonLink>
+        <ButtonLink className="mt-2 w-full" size="sm" variant="outline" href={site.resumeUrl}>Download resume</ButtonLink>
       </nav>}
     </header>
   )
