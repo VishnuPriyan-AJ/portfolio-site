@@ -22,7 +22,7 @@ export function PortraitArt({ progress, milestones, activeMilestone, revealCompl
 
   useEffect(() => {
     let cancelled = false
-    fetch("/portrait.svg")
+    fetch(`${import.meta.env.BASE_URL}portrait.svg`)
       .then((response) => {
         if (!response.ok) throw new Error("Unable to load original portrait.svg")
         return response.text()

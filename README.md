@@ -16,4 +16,6 @@ Install dependencies with `npm install`, start the development server with `npm 
 
 ## Deploy
 
-Run `npm run build` and publish the generated `dist/` directory. For GitHub Pages, configure the repository’s Pages workflow to deploy `dist/`.
+GitHub Actions builds and publishes the site to GitHub Pages when changes are pushed to `master`. The Vite base path is configured for this repository's Pages URL: `https://vishnupriyan-aj.github.io/portfolio-site/`.
+
+If Pages is not enabled yet, open the repository's **Settings → Pages** and select **GitHub Actions** as the build and deployment source. You can also build locally with `npm run build`; publish the generated `dist/` directory.
