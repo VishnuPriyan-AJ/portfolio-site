@@ -1,8 +1,8 @@
 .approach-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem; margin-top: 2.4rem; }
 .approach-card { border-color: hsl(var(--border) / .8); }
 .approach-card .p-6 { padding: 1.3rem; }
-.approach-number { color: hsl(var(--primary)); font-family: "DM Mono", monospace; font-size: .68rem; }
-.approach-card h3 { margin-top: 1.2rem; font-family: "Manrope", sans-serif; font-size: 1.02rem; font-weight: 700; letter-spacing: -.035em; }
+.approach-number { color: hsl(var(--primary)); font-family: "Geist", monospace; font-size: .68rem; }
+.approach-card h3 { margin-top: 1.2rem; font-family: "Geist", sans-serif; font-size: 1.02rem; font-weight: 700; letter-spacing: -.035em; }
 .approach-card p { min-height: 3.5rem; margin-top: .45rem; color: hsl(var(--muted-foreground)); font-size: .79rem; line-height: 1.7; }
 .approach-card .badge-row { margin-top: 1rem; }
 .approach-card .badge-row > span { font-size: .61rem; }
