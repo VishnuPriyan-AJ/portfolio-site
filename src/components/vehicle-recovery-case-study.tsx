@@ -3,7 +3,7 @@ import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { ProjectCover } from "@/components/project-cover"
 import { CaseStudyNavigation } from "@/components/case-study-navigation"
-import { getCaseStudySectionId, site, type CaseStudy, type ProjectSection } from "@/data"
+import { getCaseStudySectionId, type CaseStudy, type ProjectSection } from "@/data"
 import { vehicleRecoveryContent, vehicleRecoveryNavigation, type VehicleRecoveryBlock, type VehicleRecoverySection } from "@/content/vehicle-recovery"
 
 type LockedPayload = {
@@ -20,6 +20,7 @@ export function VehicleRecoveryCaseStudy({ project }: { project: CaseStudy }) {
   const [password, setPassword] = useState("")
   const [error, setError] = useState("")
   const [unlocked, setUnlocked] = useState(false)
+  const [gateVisible, setGateVisible] = useState(true)
   const gateId = getCaseStudySectionId(project.slug, "access")
   const navigationSections = useMemo<ProjectSection[]>(() => vehicleRecoveryNavigation.map((section) => ({ id: section.id, title: section.title, body: "" })), [])
 
@@ -48,6 +49,7 @@ export function VehicleRecoveryCaseStudy({ project }: { project: CaseStudy }) {
       setLockedSections(sections.map((section) => ({ ...section, html: sanitizeHtml(section.html) })))
       setUnlocked(true)
       setPassword("")
+      window.setTimeout(() => setGateVisible(false), 320)
     } catch {
       setError("Incorrect password")
       setPassword("")
@@ -57,7 +59,6 @@ export function VehicleRecoveryCaseStudy({ project }: { project: CaseStudy }) {
   return <article className="project-article vehicle-recovery-case-study">
     <a className="back-link" href="index.html#case-studies">Back to work</a>
     <div className="vehicle-recovery-hero" id={getCaseStudySectionId(project.slug, "hero")}>
-      <div className="vehicle-recovery-eyebrow">{vehicleRecoveryContent.eyebrow}</div>
       <h1>{vehicleRecoveryContent.title}</h1>
       <p className="project-lede">{vehicleRecoveryContent.summary}</p>
       <div className="project-meta-grid">{vehicleRecoveryContent.meta.map(([label, value]) => <div key={label}><span>{label}</span><strong>{value}</strong></div>)}</div>
@@ -70,8 +71,8 @@ export function VehicleRecoveryCaseStudy({ project }: { project: CaseStudy }) {
           {vehicleRecoveryContent.stats.map(([value, label]) => <div key={label}><strong>{value}</strong><span>{label}</span></div>)}
         </section>
         {vehicleRecoveryContent.sections.map((section) => <NativeVehicleSection key={section.id} projectSlug={project.slug} section={section} />)}
-        {!unlocked ? <UnlockGate gateId={gateId} password={password} setPassword={setPassword} error={error} onSubmit={handleUnlock} /> : lockedSections.map((section) => <section className="vehicle-recovery-content-section" id={getCaseStudySectionId(project.slug, section.id)} key={section.id}><div className="section-heading"><span>{section.title}</span><h2>{section.title}</h2></div><div className="vehicle-recovery-rich-content" dangerouslySetInnerHTML={{ __html: section.html }} /></section>)}
-        <div className="project-next"><Card><CardContent><div><span className="project-next-label">Have a similar challenge?</span><h2>Let's make it clearer.</h2></div><a className="button-link" href={`mailto:${site.email}`}>Start a conversation</a></CardContent></Card></div>
+        {gateVisible && <UnlockGate gateId={gateId} password={password} setPassword={setPassword} error={error} onSubmit={handleUnlock} isExiting={unlocked} />}
+        {unlocked && lockedSections.map((section) => <section className="vehicle-recovery-content-section" id={getCaseStudySectionId(project.slug, section.id)} key={section.id}><div className="section-heading"><h2>{section.title}</h2></div><div className="vehicle-recovery-rich-content" dangerouslySetInnerHTML={{ __html: section.html }} /></section>)}
       </div>
     </div>
   </article>
@@ -79,7 +80,7 @@ export function VehicleRecoveryCaseStudy({ project }: { project: CaseStudy }) {
 
 function NativeVehicleSection({ projectSlug, section }: { projectSlug: string; section: VehicleRecoverySection }) {
   return <section className="vehicle-recovery-content-section" id={getCaseStudySectionId(projectSlug, section.id)}>
-    <div className="section-heading"><span>{section.title}</span><h2>{section.title}</h2></div>
+    <div className="section-heading"><h2>{section.title}</h2></div>
     {section.lead && <p className="section-lead">{section.lead}</p>}
     <div className="vehicle-recovery-blocks">{section.blocks?.map((block, index) => <VehicleBlock block={block} key={`${section.id}-${index}`} />)}</div>
   </section>
@@ -93,21 +94,49 @@ function VehicleBlock({ block }: { block: VehicleRecoveryBlock }) {
   return <p>{block.text}</p>
 }
 
-function UnlockGate({ gateId, password, setPassword, error, onSubmit }: { gateId: string; password: string; setPassword: (value: string) => void; error: string; onSubmit: (event: FormEvent<HTMLFormElement>) => void }) {
-  return <section className="case-study-gate" id={gateId} aria-labelledby="case-study-gate-title">
-    <div className="case-study-skeleton" aria-hidden="true"><span /><span /><div><i /><i /><i /></div><span /></div>
-    <Card><CardContent><div className="case-study-gate-card">
-      <span className="case-study-gate-icon" aria-hidden="true">🔒</span>
-      <h2 id="case-study-gate-title">The rest of this case study is protected</h2>
-      <p>This project contains confidential company work. Enter the password to continue.</p>
-      <form onSubmit={onSubmit}>
-        <label htmlFor="case-study-password">Password</label>
-        <input id="case-study-password" type="password" autoComplete="off" value={password} onChange={(event) => setPassword(event.target.value)} required />
-        <Button type="submit">Unlock</Button>
-        {error && <p className="case-study-gate-error" role="alert">{error}</p>}
-      </form>
-      <a className="case-study-back-button" href="index.html#case-studies">Back to portfolio</a>
-    </div></CardContent></Card>
+function UnlockGate({ gateId, password, setPassword, error, onSubmit, isExiting }: { gateId: string; password: string; setPassword: (value: string) => void; error: string; onSubmit: (event: FormEvent<HTMLFormElement>) => void; isExiting: boolean }) {
+  const [showPassword, setShowPassword] = useState(false)
+
+  useEffect(() => {
+    const gate = document.getElementById(gateId)
+    const input = document.getElementById("case-study-password")
+    if (!gate || !input) return
+    const observer = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting) {
+        input.focus()
+        observer.disconnect()
+      }
+    }, { threshold: .25 })
+    observer.observe(gate)
+    return () => observer.disconnect()
+  }, [gateId])
+
+  return <section className={`case-study-gate${isExiting ? " is-exiting" : ""}`} id={gateId} aria-labelledby="case-study-gate-title">
+    <div className="case-study-skeleton" aria-hidden="true">
+      <div className="case-study-skeleton-heading" />
+      <div className="case-study-skeleton-copy" />
+      <div className="case-study-skeleton-table"><i /><i /><i /><i /><i /><i /><i /><i /></div>
+      <div className="case-study-skeleton-image" />
+      <div className="case-study-skeleton-copy short" />
+    </div>
+    <div className="case-study-scrim" aria-hidden="true" />
+    <div className="case-study-gate-modal" role="dialog" aria-modal="true" aria-labelledby="case-study-gate-title">
+      <Card><CardContent><div className="case-study-gate-card">
+        <span className="case-study-gate-icon" aria-hidden="true">🔒</span>
+        <h2 id="case-study-gate-title">The rest of this case study is protected</h2>
+        <p>This project contains confidential company work. Enter the password to continue.</p>
+        <form onSubmit={onSubmit}>
+          <label htmlFor="case-study-password">Password</label>
+          <div className="case-study-password-field">
+            <input id="case-study-password" type={showPassword ? "text" : "password"} autoComplete="off" value={password} onChange={(event) => setPassword(event.target.value)} required />
+            <button type="button" onClick={() => setShowPassword((visible) => !visible)} aria-label={showPassword ? "Hide password" : "Show password"}>{showPassword ? "Hide" : "Show"}</button>
+          </div>
+          <Button type="submit">Unlock</Button>
+          {error && <p className="case-study-gate-error" role="alert">{error}</p>}
+        </form>
+        <a className="case-study-back-button" href="/">Back to home</a>
+      </div></CardContent></Card>
+    </div>
   </section>
 }
 

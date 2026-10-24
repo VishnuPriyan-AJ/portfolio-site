@@ -14,7 +14,6 @@ export type VehicleRecoverySection = {
 }
 
 export const vehicleRecoveryContent = {
-  eyebrow: "Motorq · 2023–Present · B2B Product Design",
   title: "Designing the Vehicle Recovery Console from zero to live",
   summary: "A 0→1 product that replaced a broken, 5-tool manual recovery workflow — cutting per-vehicle time from 1–2 hours to 10–15 minutes, powered by Motorq's OEM telematics and AI prediction engine.",
   meta: [

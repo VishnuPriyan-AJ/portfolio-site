@@ -172,7 +172,6 @@ button { font: inherit; }
 
 .vehicle-recovery-case-study { max-width: 1120px; }
 .vehicle-recovery-hero { padding-top: 1rem; }
-.vehicle-recovery-eyebrow { margin-bottom: 1rem; color: hsl(var(--muted-foreground)); font-size: .8rem; }
 .vehicle-recovery-hero h1 { max-width: 820px; }
 .project-meta-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 1rem; margin: 2rem 0; padding: 1.25rem 0; border-block: 1px solid hsl(var(--border)); }
 .project-meta-grid div { display: grid; gap: .35rem; }
@@ -185,7 +184,6 @@ button { font: inherit; }
 .vehicle-recovery-content-section { padding: 3rem 0; scroll-margin-top: 5.5rem; }
 .vehicle-recovery-content-section + .vehicle-recovery-content-section { border-top: 1px solid hsl(var(--border)); }
 .section-heading { display: grid; gap: .5rem; margin-bottom: 1rem; }
-.section-heading span { color: hsl(var(--primary)); font-size: .72rem; font-weight: 600; }
 .section-heading h2 { margin: 0; font-size: clamp(1.6rem, 3vw, 2.4rem); }
 .section-lead, .vehicle-recovery-blocks p, .vehicle-recovery-rich-content p { color: hsl(var(--muted-foreground)); line-height: 1.75; }
 .vehicle-recovery-blocks { display: grid; gap: 1rem; }
@@ -197,23 +195,32 @@ button { font: inherit; }
 .vehicle-recovery-blocks table, .vehicle-recovery-rich-content table { width: 100%; min-width: 680px; border-collapse: collapse; font-size: .78rem; }
 .vehicle-recovery-blocks th, .vehicle-recovery-blocks td, .vehicle-recovery-rich-content th, .vehicle-recovery-rich-content td { padding: .7rem; border: 1px solid hsl(var(--border)); text-align: left; vertical-align: top; }
 .vehicle-recovery-blocks th, .vehicle-recovery-rich-content th { color: hsl(var(--foreground)); font-weight: 600; }
-.case-study-gate { position: relative; min-height: 520px; margin: 1rem 0 2rem; padding: 5rem 1rem; overflow: hidden; scroll-margin-top: 5.5rem; }
-.case-study-skeleton { position: absolute; inset: 0; display: grid; align-content: center; gap: 1.25rem; padding: 4rem 10%; filter: blur(10px); pointer-events: none; user-select: none; }
-.case-study-skeleton span { display: block; width: 75%; height: 1.25rem; border-radius: .5rem; background: hsl(var(--muted)); }
-.case-study-skeleton span:first-child { width: 90%; height: 3rem; }
-.case-study-skeleton div { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
-.case-study-skeleton i { display: block; height: 12rem; border-radius: .75rem; background: hsl(var(--muted)); }
-.case-study-gate > .card { position: relative; max-width: 34rem; margin: auto; background: hsl(var(--card) / .96); }
+.case-study-gate { position: relative; min-height: min(100svh, 900px); margin: 0 -2rem 2rem; padding: 0 2rem; overflow: hidden; scroll-margin-top: 5.5rem; }
+.case-study-gate.is-exiting { opacity: 0; transition: opacity .3s ease; }
+.case-study-gate::before { position: absolute; z-index: 1; top: 0; right: 0; left: 0; height: 5rem; background: linear-gradient(to bottom, hsl(var(--background)), transparent); content: ""; pointer-events: none; }
+.case-study-skeleton { position: absolute; inset: -40px; display: grid; align-content: center; gap: 1.25rem; padding: 8rem 12%; filter: blur(14px); pointer-events: none; user-select: none; }
+.case-study-skeleton-heading, .case-study-skeleton-copy, .case-study-skeleton-table, .case-study-skeleton-image { border-radius: .75rem; background: hsl(var(--muted)); }
+.case-study-skeleton-heading { width: 78%; height: 3rem; }
+.case-study-skeleton-copy { width: 64%; height: 1.2rem; }
+.case-study-skeleton-copy.short { width: 42%; }
+.case-study-skeleton-table { display: grid; grid-template-columns: repeat(4, 1fr); gap: .7rem; padding: 1rem; }
+.case-study-skeleton-table i { display: block; height: 1.25rem; border-radius: .3rem; background: hsl(var(--card)); }
+.case-study-skeleton-image { width: 100%; height: 18rem; }
+.case-study-scrim { position: absolute; inset: 0; z-index: 2; background: color-mix(in srgb, hsl(var(--background)) 55%, transparent); backdrop-filter: blur(6px); }
+.case-study-gate-modal { position: sticky; z-index: 3; top: 0; display: grid; min-height: min(100svh, 900px); place-items: center; }
+.case-study-gate-modal > .card { width: min(100%, 440px); background: hsl(var(--card) / .97); box-shadow: 0 1.5rem 4rem hsl(var(--foreground) / .18); }
 .case-study-gate-card { display: grid; gap: .8rem; text-align: center; }
 .case-study-gate-card h2 { margin: 0; font-size: clamp(1.5rem, 3vw, 2rem); }
 .case-study-gate-card p { color: hsl(var(--muted-foreground)); line-height: 1.6; }
 .case-study-gate-card form { display: grid; gap: .55rem; text-align: left; }
 .case-study-gate-card label { font-size: .8rem; font-weight: 600; }
-.case-study-gate-card input { width: 100%; border: 1px solid hsl(var(--border)); border-radius: .5rem; padding: .7rem .8rem; background: hsl(var(--background)); color: hsl(var(--foreground)); }
+.case-study-password-field { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: .5rem; }
+.case-study-gate-card input { width: 100%; min-width: 0; border: 1px solid hsl(var(--border)); border-radius: .5rem; padding: .7rem .8rem; background: hsl(var(--background)); color: hsl(var(--foreground)); }
+.case-study-password-field button { border: 1px solid hsl(var(--border)); border-radius: .5rem; padding: .7rem .8rem; background: hsl(var(--muted)); color: hsl(var(--foreground)); cursor: pointer; }
 .case-study-gate-error { color: hsl(var(--destructive)) !important; font-size: .8rem; }
-.case-study-back-button { border: 0; background: transparent; color: hsl(var(--primary)); cursor: pointer; font: inherit; font-size: .8rem; }
+.case-study-back-button { color: hsl(var(--primary)); font-size: .8rem; text-align: center; }
 .vehicle-recovery-rich-content { display: grid; gap: 1rem; color: hsl(var(--muted-foreground)); }
 .vehicle-recovery-rich-content img { max-width: 100%; height: auto; border-radius: .75rem; }
 .vehicle-recovery-rich-content > div { display: grid; gap: 1rem; }
-@media (max-width: 900px) { .project-meta-grid { grid-template-columns: repeat(3, 1fr); }.vehicle-recovery-stats { grid-template-columns: repeat(2, 1fr); }.case-study-gate { min-height: 460px; padding-inline: 0; } }
+@media (max-width: 900px) { .project-meta-grid { grid-template-columns: repeat(3, 1fr); }.vehicle-recovery-stats { grid-template-columns: repeat(2, 1fr); }.case-study-gate { margin-inline: -1rem; padding-inline: 1rem; }.case-study-skeleton { padding-inline: 10%; } }
 @media (max-width: 600px) { .project-meta-grid { grid-template-columns: repeat(2, 1fr); }.vehicle-recovery-stats { grid-template-columns: 1fr 1fr; }.case-study-skeleton { padding-inline: 1rem; }.case-study-skeleton div { grid-template-columns: 1fr; }.case-study-skeleton i { height: 6rem; } }
