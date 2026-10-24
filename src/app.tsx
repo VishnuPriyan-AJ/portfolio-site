@@ -8,7 +8,7 @@ import { ProjectCover } from "@/components/project-cover"
 import { SectionHeading } from "@/components/section-heading"
 import { SiteFooter } from "@/components/site-footer"
 import { SiteHeader } from "@/components/site-header"
-import { JourneyHero } from "@/components/journey-hero"
+import { WorldHero, WorldMap } from "@/components/world-map"
 import { CaseStudyNavigation } from "@/components/case-study-navigation"
 import { VehicleRecoveryCaseStudy } from "@/components/vehicle-recovery-case-study"
 
@@ -22,9 +22,10 @@ export function HomePage() {
     <a className="skip-link" href="#main">Skip to content</a>
     <div id="top"><SiteHeader /></div>
     <main id="main">
-      <JourneyHero />
+      <WorldHero />
+      <WorldMap />
       <section className="container-shell section-block work-section" id="case-studies" aria-labelledby="work-title">
-        <div className="section-topline"><SectionHeading title="A few things I've helped bring to life." description={site.caseStudiesIntro} id="work-title" /><span className="section-count">01 - 03</span></div>
+        <div className="section-topline"><SectionHeading title="Selected work" description={site.caseStudiesIntro} id="work-title" /><span className="section-count">01 - 03</span></div>
         {projectGroups.map((group) => <div className="project-group" key={group.category}>
           <h3 className="project-group-title">{group.title}</h3>
           <div className="projects-grid">{site.caseStudies.filter((project) => project.category === group.category).map((project, index) => <Card className="project-card" key={project.slug}>

@@ -4,6 +4,7 @@ import { HomePage, ProjectPage } from "@/app"
 import "@/styles.css"
 import "@/sections.css"
 import "@/autobiography.css"
+import "@/world.css"
 
 const isProjectPage = window.location.pathname.endsWith("project.html")
 ReactDOM.createRoot(document.getElementById("root")!).render(
