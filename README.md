@@ -18,7 +18,7 @@ Install dependencies with `npm install`, start the development server with `npm 
 
 ## Updating the protected case study
 
-The Vehicle Recovery Console source is intentionally kept out of the public repository because it contains confidential work. Keep a local copy at `case-studies/vehicle-recovery/source.html`, then run `CASESTUDY_PASSWORD=... npm run build:case-study` to generate the encrypted public page at `public/case-studies/vehicle-recovery/index.html`. The password is never written to the repository. This protects against casual and technical viewing but remains dependent on password strength; server-side access control is the stronger future option. Web Crypto requires HTTPS or localhost.
+The Vehicle Recovery Console source is intentionally kept out of the public repository because it contains confidential work. Keep a local copy at `case-studies/vehicle-recovery/source.html`, then run `CASESTUDY_PASSWORD=... npm run build:case-study` to generate the encrypted payload at `public/case-studies/vehicle-recovery/locked-payload.json`. The native React route at `project.html?slug=vehicle-recovery-console` renders the public case study and unlocks the protected sections in the browser after successful decryption. The password is never written to the repository. This protects against casual and technical viewing but remains dependent on password strength; server-side access control is the stronger future option. Web Crypto requires HTTPS or localhost.
 
 GitHub Actions builds and publishes the site to GitHub Pages when changes are pushed to `master`. The Vite base path is configured for this repository's Pages URL: `https://vishnupriyan-aj.github.io/portfolio-site/`.
 

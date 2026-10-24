@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import { getCaseStudySectionId, type ProjectSection } from "@/data"
 
-export function CaseStudyNavigation({ projectSlug, sections }: { projectSlug: string; sections: ProjectSection[] }) {
+export function CaseStudyNavigation({ projectSlug, sections, lockedIds = [], onLockedClick }: { projectSlug: string; sections: ProjectSection[]; lockedIds?: string[]; onLockedClick?: () => void }) {
   const [activeId, setActiveId] = useState(sections[0]?.id ?? "")
 
   useEffect(() => {
@@ -34,8 +34,9 @@ export function CaseStudyNavigation({ projectSlug, sections }: { projectSlug: st
     <ul>
       {sections.map((section) => {
         const id = getCaseStudySectionId(projectSlug, section.id)
-        return <li key={section.id}>
-          <a href={`#${id}`} aria-current={activeId === section.id ? "location" : undefined}>{section.title}</a>
+          const locked = lockedIds.includes(section.id)
+          return <li key={section.id}>
+             <a href={`#${id}`} aria-current={activeId === section.id ? "location" : undefined} onClick={locked ? (event) => { event.preventDefault(); onLockedClick?.() } : undefined}><span>{section.title}</span>{locked && <span className="case-study-navigation-lock" aria-hidden="true">🔒</span>}</a>
         </li>
       })}
     </ul>

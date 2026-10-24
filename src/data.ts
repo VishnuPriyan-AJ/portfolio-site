@@ -6,7 +6,6 @@ export type CaseStudy = {
   summary: string
   tags: string[]
   image: string
-  url?: string
   sections?: ProjectSection[]
 }
 
@@ -47,7 +46,6 @@ export const site = {
       summary: "A 0→1 product that replaced a broken, 5-tool manual recovery workflow, cutting per-vehicle time from 1–2 hours to 10–15 minutes.",
       tags: ["Product", "Operations"],
       image: "",
-      url: "case-studies/vehicle-recovery/",
       sections: [],
     },
     {

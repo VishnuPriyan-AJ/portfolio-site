@@ -1,4 +1,4 @@
-import { useEffect, useState, type FormEvent } from "react"
+import { useState, type FormEvent } from "react"
 import { Check, Mail, Send, Sparkles } from "lucide-react"
 import { getCaseStudySectionId, getCaseStudySections, site } from "@/data"
 import { Badge } from "@/components/ui/badge"
@@ -10,6 +10,7 @@ import { SiteFooter } from "@/components/site-footer"
 import { SiteHeader } from "@/components/site-header"
 import { JourneyHero } from "@/components/journey-hero"
 import { CaseStudyNavigation } from "@/components/case-study-navigation"
+import { VehicleRecoveryCaseStudy } from "@/components/vehicle-recovery-case-study"
 
 const projectGroups = [
   { category: "live" as const, title: "Live projects" },
@@ -27,8 +28,8 @@ export function HomePage() {
         {projectGroups.map((group) => <div className="project-group" key={group.category}>
           <h3 className="project-group-title">{group.title}</h3>
           <div className="projects-grid">{site.caseStudies.filter((project) => project.category === group.category).map((project, index) => <Card className="project-card" key={project.slug}>
-            <a className="project-cover-link" href={project.url ?? `project.html?slug=${encodeURIComponent(project.slug)}`} aria-label={`View ${project.title} case study`}><ProjectCover project={project} index={index} /></a>
-            <CardContent className="project-card-content"><div className="project-card-meta"><span>{String(index + 1).padStart(2, "0")} / Case study</span></div><h3>{project.title}</h3><p>{project.summary}</p><div className="badge-row">{project.tags.map((tag) => <Badge key={tag}>{tag}</Badge>)}</div><a className="project-link" href={project.url ?? `project.html?slug=${encodeURIComponent(project.slug)}`}>Read case study</a></CardContent>
+            <a className="project-cover-link" href={`project.html?slug=${encodeURIComponent(project.slug)}`} aria-label={`View ${project.title} case study`}><ProjectCover project={project} index={index} /></a>
+            <CardContent className="project-card-content"><div className="project-card-meta"><span>{String(index + 1).padStart(2, "0")} / Case study</span></div><h3>{project.title}</h3><p>{project.summary}</p><div className="badge-row">{project.tags.map((tag) => <Badge key={tag}>{tag}</Badge>)}</div><a className="project-link" href={`project.html?slug=${encodeURIComponent(project.slug)}`}>Read case study</a></CardContent>
           </Card>)}</div>
         </div>)}
         <div className="project-group" id="explorations">
@@ -82,11 +83,6 @@ function ContactSection() {
 
 export function ProjectPage() {
   const slug = new URLSearchParams(window.location.search).get("slug")
-  useEffect(() => {
-    if (slug === "vehicle-recovery-console") {
-      window.location.replace("case-studies/vehicle-recovery/index.html")
-    }
-  }, [slug])
   const project = site.caseStudies.find((item) => item.slug === slug)
   const sections = getCaseStudySections(project?.sections)
   const title = project ? `${project.title} | ${site.name}` : `Case study not found | ${site.name}`
@@ -101,7 +97,7 @@ export function ProjectPage() {
     <a className="skip-link" href="#main">Skip to content</a>
     <div id="top"><SiteHeader /></div>
     <main id="main" className="container-shell project-main">
-      {project ? <article className="project-article">
+      {project?.slug === "vehicle-recovery-console" ? <VehicleRecoveryCaseStudy project={project} /> : project ? <article className="project-article">
         <a className="back-link" href="index.html#case-studies">All case studies</a>
         <h1>{project.title}</h1><p className="project-lede">{project.summary}</p>
         <div className="project-hero-cover"><ProjectCover project={project} index={site.caseStudies.indexOf(project)} /></div>
