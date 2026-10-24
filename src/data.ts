@@ -1,4 +1,4 @@
-export type ProjectSection = { heading: string; body: string }
+export type ProjectSection = { id: string; title: string; body: string }
 export type CaseStudy = {
   slug: string
   title: string
@@ -6,7 +6,23 @@ export type CaseStudy = {
   summary: string
   tags: string[]
   image: string
-  sections: ProjectSection[]
+  url?: string
+  sections?: ProjectSection[]
+}
+
+export function getCaseStudySections(sections?: ProjectSection[]): ProjectSection[] {
+  const seen = new Set<string>()
+  return (sections ?? []).filter((section) => {
+    const id = section.id.trim()
+    const title = section.title.trim()
+    if (!id || !title || seen.has(id)) return false
+    seen.add(id)
+    return true
+  })
+}
+
+export function getCaseStudySectionId(projectSlug: string, sectionId: string) {
+  return `case-study-${projectSlug}-${sectionId}`
 }
 
 export const site = {
@@ -28,14 +44,11 @@ export const site = {
       slug: "vehicle-recovery-console",
       title: "Vehicle Recovery Console",
       category: "live",
-      summary: "Case study content coming soon. Add the product context, decisions and measurable outcome here.",
+      summary: "A 0→1 product that replaced a broken, 5-tool manual recovery workflow, cutting per-vehicle time from 1–2 hours to 10–15 minutes.",
       tags: ["Product", "Operations"],
       image: "",
-      sections: [
-        { heading: "Problem", body: "Add the problem this project addressed." },
-        { heading: "Approach", body: "Add the key decisions and implementation details." },
-        { heading: "Outcome", body: "Add the measurable result or impact." },
-      ],
+      url: "case-studies/vehicle-recovery/",
+      sections: [],
     },
     {
       slug: "fuse-ai",
@@ -44,11 +57,7 @@ export const site = {
       summary: "Case study content coming soon. Add the product context, decisions and measurable outcome here.",
       tags: ["AI", "Product"],
       image: "",
-      sections: [
-        { heading: "Problem", body: "Add the problem this project addressed." },
-        { heading: "Approach", body: "Add the key decisions and implementation details." },
-        { heading: "Outcome", body: "Add the measurable result or impact." },
-      ],
+      sections: [],
     },
     {
       slug: "netx360",
@@ -57,11 +66,7 @@ export const site = {
       summary: "Case study content coming soon. Add the product context, decisions and measurable outcome here.",
       tags: ["Platform", "Systems"],
       image: "",
-      sections: [
-        { heading: "Problem", body: "Add the problem this project addressed." },
-        { heading: "Approach", body: "Add the key decisions and implementation details." },
-        { heading: "Outcome", body: "Add the measurable result or impact." },
-      ],
+      sections: [],
     },
     {
       slug: "lion-muthu-comics",
@@ -70,11 +75,7 @@ export const site = {
       summary: "Concept case study content coming soon. Add the concept, process and intended outcome here.",
       tags: ["Concept", "Editorial"],
       image: "",
-      sections: [
-        { heading: "Problem", body: "Add the opportunity or idea behind this concept." },
-        { heading: "Approach", body: "Add the exploration and design decisions." },
-        { heading: "Outcome", body: "Add the intended result or learning." },
-      ],
+      sections: [],
     },
     {
       slug: "outfit",
@@ -83,11 +84,7 @@ export const site = {
       summary: "Concept case study content coming soon. Add the concept, process and intended outcome here.",
       tags: ["Concept", "Product"],
       image: "",
-      sections: [
-        { heading: "Problem", body: "Add the opportunity or idea behind this concept." },
-        { heading: "Approach", body: "Add the exploration and design decisions." },
-        { heading: "Outcome", body: "Add the intended result or learning." },
-      ],
+      sections: [],
     },
   ] satisfies CaseStudy[],
   explorations: [

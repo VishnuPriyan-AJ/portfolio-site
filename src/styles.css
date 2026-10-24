@@ -153,3 +153,17 @@ button { font: inherit; }
 .project-group-title { margin-bottom: 1rem; font-family: "Geist", sans-serif; font-size: 1.35rem; font-weight: 700; letter-spacing: -.04em; }
 @media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; } }
 @media (prefers-reduced-motion: reduce) { .theme-cord-icon { animation: none; } }
+
+.project-article { max-width: 1120px; }
+.project-layout { display: grid; grid-template-columns: minmax(150px, 180px) minmax(0, 690px); align-items: start; justify-content: center; gap: clamp(2rem, 5vw, 5rem); margin-top: 3rem; }
+.project-layout .project-article-body { width: 100%; margin-top: 0; }
+.project-article-body section[id] { scroll-margin-top: 5.5rem; }
+.case-study-navigation { position: sticky; top: 5.5rem; min-width: 0; }
+.case-study-navigation ul { display: grid; gap: .35rem; margin: 0; padding: 0 0 0 .9rem; border-left: 1px solid hsl(var(--border)); list-style: none; }
+.case-study-navigation a { position: relative; display: block; padding: .35rem 0; color: hsl(var(--muted-foreground)); font-size: .75rem; line-height: 1.35; transition: color .18s; }
+.case-study-navigation a::before { position: absolute; top: 0; bottom: 0; left: -.95rem; width: 2px; background: transparent; content: ""; }
+.case-study-navigation a:hover, .case-study-navigation a[aria-current="location"] { color: hsl(var(--foreground)); }
+.case-study-navigation a[aria-current="location"]::before { background: hsl(var(--primary)); }
+.case-study-navigation a:focus-visible { border-radius: .25rem; outline: 3px solid hsl(var(--ring)); outline-offset: 3px; }
+@media (max-width: 900px) { .project-layout { display: block; margin-top: 2.5rem; }.case-study-navigation { position: sticky; top: 4rem; z-index: 2; margin-bottom: 2rem; padding-block: .7rem; background: hsl(var(--background) / .94); backdrop-filter: blur(14px); overflow-x: auto; }.case-study-navigation ul { display: flex; gap: 1.25rem; width: max-content; padding: 0 0 .45rem; border: 0; }.case-study-navigation li { flex: none; }.case-study-navigation a { padding: .2rem 0; white-space: nowrap; }.case-study-navigation a::before { top: auto; right: 0; bottom: -.45rem; left: 0; width: auto; height: 2px; }.project-layout .project-article-body { max-width: 690px; margin-inline: auto; } }
+@media (max-width: 680px) { .project-article { max-width: none; }.project-layout { margin-top: 2rem; }.case-study-navigation { margin-inline: -1rem; padding-inline: 1rem; }.project-article-body section[id] { scroll-margin-top: 5rem; } }

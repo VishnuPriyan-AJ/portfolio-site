@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
+    "build:case-study": "node scripts/build-case-study.mjs",
     "preview": "vite preview"
   },
   "dependencies": {

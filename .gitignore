@@ -2,3 +2,6 @@
 node_modules/
 dist/
 .vscode/
+.env
+.env.*
+case-studies/**/source.html

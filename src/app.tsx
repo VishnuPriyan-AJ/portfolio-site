@@ -1,6 +1,6 @@
-import { useState, type FormEvent } from "react"
+import { useEffect, useState, type FormEvent } from "react"
 import { Check, Mail, Send, Sparkles } from "lucide-react"
-import { site } from "@/data"
+import { getCaseStudySectionId, getCaseStudySections, site } from "@/data"
 import { Badge } from "@/components/ui/badge"
 import { Button, ButtonLink } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
@@ -9,6 +9,7 @@ import { SectionHeading } from "@/components/section-heading"
 import { SiteFooter } from "@/components/site-footer"
 import { SiteHeader } from "@/components/site-header"
 import { JourneyHero } from "@/components/journey-hero"
+import { CaseStudyNavigation } from "@/components/case-study-navigation"
 
 const projectGroups = [
   { category: "live" as const, title: "Live projects" },
@@ -22,12 +23,12 @@ export function HomePage() {
     <main id="main">
       <JourneyHero />
       <section className="container-shell section-block work-section" id="case-studies" aria-labelledby="work-title">
-        <div className="section-topline"><SectionHeading title="A few things I’ve helped bring to life." description={site.caseStudiesIntro} id="work-title" /><span className="section-count">01 — 03</span></div>
+        <div className="section-topline"><SectionHeading title="A few things I've helped bring to life." description={site.caseStudiesIntro} id="work-title" /><span className="section-count">01 - 03</span></div>
         {projectGroups.map((group) => <div className="project-group" key={group.category}>
           <h3 className="project-group-title">{group.title}</h3>
           <div className="projects-grid">{site.caseStudies.filter((project) => project.category === group.category).map((project, index) => <Card className="project-card" key={project.slug}>
-            <a className="project-cover-link" href={`project.html?slug=${encodeURIComponent(project.slug)}`} aria-label={`View ${project.title} case study`}><ProjectCover project={project} index={index} /></a>
-            <CardContent className="project-card-content"><div className="project-card-meta"><span>{String(index + 1).padStart(2, "0")} / Case study</span></div><h3>{project.title}</h3><p>{project.summary}</p><div className="badge-row">{project.tags.map((tag) => <Badge key={tag}>{tag}</Badge>)}</div><a className="project-link" href={`project.html?slug=${encodeURIComponent(project.slug)}`}>Read case study</a></CardContent>
+            <a className="project-cover-link" href={project.url ?? `project.html?slug=${encodeURIComponent(project.slug)}`} aria-label={`View ${project.title} case study`}><ProjectCover project={project} index={index} /></a>
+            <CardContent className="project-card-content"><div className="project-card-meta"><span>{String(index + 1).padStart(2, "0")} / Case study</span></div><h3>{project.title}</h3><p>{project.summary}</p><div className="badge-row">{project.tags.map((tag) => <Badge key={tag}>{tag}</Badge>)}</div><a className="project-link" href={project.url ?? `project.html?slug=${encodeURIComponent(project.slug)}`}>Read case study</a></CardContent>
           </Card>)}</div>
         </div>)}
         <div className="project-group" id="explorations">
@@ -68,12 +69,12 @@ function ContactSection() {
     event.currentTarget.reset()
   }
   return <section className="container-shell section-block contact-section" id="contact" aria-labelledby="contact-title">
-    <div className="contact-intro"><SectionHeading title="Have a good problem to solve?" description="Tell me a little about what you’re working on. I’d love to hear from you." id="contact-title" /><a className="contact-email" href={`mailto:${site.email}`}><Mail size={16} /> {site.email}</a></div>
+    <div className="contact-intro"><SectionHeading title="Have a good problem to solve?" description="Tell me a little about what you're working on. I'd love to hear from you." id="contact-title" /><a className="contact-email" href={`mailto:${site.email}`}><Mail size={16} /> {site.email}</a></div>
     <Card className="contact-card"><CardContent><form className="contact-form" onSubmit={handleSubmit}>
       <div className="form-field"><label htmlFor="contact-name">Your name</label><input id="contact-name" name="name" autoComplete="name" placeholder="Alex Morgan" minLength={2} required /></div>
       <div className="form-field"><label htmlFor="contact-email">Email address</label><input id="contact-email" name="email" type="email" autoComplete="email" placeholder="alex@company.com" required /></div>
-      <div className="form-field"><label htmlFor="contact-message">What are you thinking about?</label><textarea id="contact-message" name="message" placeholder="A quick note about your project, idea, or question…" rows={4} minLength={10} required /></div>
-      <div className="form-submit"><Button type="submit">Prepare email <Send size={15} /></Button><span className="form-hint">Opens your email app—no data is stored here.</span></div>
+      <div className="form-field"><label htmlFor="contact-message">What are you thinking about?</label><textarea id="contact-message" name="message" placeholder="A quick note about your project, idea, or question..." rows={4} minLength={10} required /></div>
+      <div className="form-submit"><Button type="submit">Prepare email <Send size={15} /></Button><span className="form-hint">Opens your email app - no data is stored here.</span></div>
       <p className="form-feedback" role="status" aria-live="polite">{message && <><Check size={15} /> {message}</>}</p>
     </form></CardContent></Card>
   </section>
@@ -81,7 +82,13 @@ function ContactSection() {
 
 export function ProjectPage() {
   const slug = new URLSearchParams(window.location.search).get("slug")
+  useEffect(() => {
+    if (slug === "vehicle-recovery-console") {
+      window.location.replace("case-studies/vehicle-recovery/index.html")
+    }
+  }, [slug])
   const project = site.caseStudies.find((item) => item.slug === slug)
+  const sections = getCaseStudySections(project?.sections)
   const title = project ? `${project.title} | ${site.name}` : `Case study not found | ${site.name}`
   document.title = title
   const description = document.querySelector<HTMLMetaElement>('meta[name="description"]')
@@ -98,11 +105,13 @@ export function ProjectPage() {
         <a className="back-link" href="index.html#case-studies">All case studies</a>
         <h1>{project.title}</h1><p className="project-lede">{project.summary}</p>
         <div className="project-hero-cover"><ProjectCover project={project} index={site.caseStudies.indexOf(project)} /></div>
-        <div className="project-article-body">{project.sections.map((section) => <section key={section.heading}><h2>{section.heading}</h2><p>{section.body}</p></section>)}
-          <Card className="project-next"><CardContent><div><span className="project-next-label">Have a similar challenge?</span><h2>Let’s make it clearer.</h2></div><ButtonLink href={`mailto:${site.email}`}>Start a conversation</ButtonLink></CardContent></Card>
-        </div>
-      </article> : <Card className="not-found-card"><CardContent><h1>That case study isn’t here.</h1><p>The link may be outdated. Head back to the selected work to find another project.</p><ButtonLink href="index.html#case-studies">Back to selected work</ButtonLink></CardContent></Card>}
+        {sections.length > 0 ? <div className="project-layout"><CaseStudyNavigation projectSlug={project.slug} sections={sections} /><div className="project-article-body">{sections.map((section) => <section id={getCaseStudySectionId(project.slug, section.id)} key={section.id}><h2>{section.title}</h2><p>{section.body}</p></section>)}<ProjectNextCard /></div></div> : <div className="project-article-body"><ProjectNextCard /></div>}
+      </article> : <Card className="not-found-card"><CardContent><h1>That case study isn't here.</h1><p>The link may be outdated. Head back to the selected work to find another project.</p><ButtonLink href="index.html#case-studies">Back to selected work</ButtonLink></CardContent></Card>}
     </main>
     <SiteFooter />
   </>
+}
+
+function ProjectNextCard() {
+  return <Card className="project-next"><CardContent><div><span className="project-next-label">Have a similar challenge?</span><h2>Let's make it clearer.</h2></div><ButtonLink href={`mailto:${site.email}`}>Start a conversation</ButtonLink></CardContent></Card>
 }
