@@ -19,6 +19,7 @@ export function VehicleRecoveryCaseStudy({ project }: { project: CaseStudy }) {
   const [lockedSections, setLockedSections] = useState<LockedPayload["sections"]>([])
   const [password, setPassword] = useState("")
   const [error, setError] = useState("")
+  const [isUnlocking, setIsUnlocking] = useState(false)
   const [unlocked, setUnlocked] = useState(false)
   const [gateVisible, setGateVisible] = useState(true)
   const gateId = getCaseStudySectionId(project.slug, "access")
@@ -36,11 +37,15 @@ export function VehicleRecoveryCaseStudy({ project }: { project: CaseStudy }) {
 
   async function handleUnlock(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
+    if (isUnlocking) return
     setError("")
+    setIsUnlocking(true)
     try {
-      const response = await fetch("case-studies/vehicle-recovery/locked-payload.json", { cache: "no-store" })
-      if (!response.ok) throw new Error("Payload unavailable")
+      if (!window.crypto?.subtle) throw new Error("Browser encryption unavailable")
+      const response = await fetch(new URL("case-studies/vehicle-recovery/locked-payload.json", document.baseURI), { cache: "no-store" })
+      if (!response.ok) throw new Error("Protected content unavailable")
       const payload = await response.json() as LockedPayload
+      if (!payload.salt || !payload.iv || !payload.ct) throw new Error("Protected content unavailable")
       const decode = (value: string) => Uint8Array.from(atob(value), (character) => character.charCodeAt(0))
       const base = await crypto.subtle.importKey("raw", new TextEncoder().encode(password), "PBKDF2", false, ["deriveKey"])
       const key = await crypto.subtle.deriveKey({ name: "PBKDF2", salt: decode(payload.salt), iterations: 600000, hash: "SHA-256" }, base, { name: "AES-GCM", length: 256 }, false, ["decrypt"])
@@ -50,9 +55,12 @@ export function VehicleRecoveryCaseStudy({ project }: { project: CaseStudy }) {
       setUnlocked(true)
       setPassword("")
       window.setTimeout(() => setGateVisible(false), 320)
-    } catch {
-      setError("Incorrect password")
+    } catch (unlockError) {
+      const message = unlockError instanceof Error ? unlockError.message : ""
+      setError(message === "Protected content unavailable" ? "Protected content could not be loaded. Check your connection and try again." : message === "Browser encryption unavailable" ? "This browser cannot unlock protected content." : "Incorrect password")
       setPassword("")
+    } finally {
+      setIsUnlocking(false)
     }
   }
 
@@ -71,7 +79,7 @@ export function VehicleRecoveryCaseStudy({ project }: { project: CaseStudy }) {
           {vehicleRecoveryContent.stats.map(([value, label]) => <div key={label}><strong>{value}</strong><span>{label}</span></div>)}
         </section>
         {vehicleRecoveryContent.sections.map((section) => <NativeVehicleSection key={section.id} projectSlug={project.slug} section={section} />)}
-        {gateVisible && <UnlockGate gateId={gateId} password={password} setPassword={setPassword} error={error} onSubmit={handleUnlock} isExiting={unlocked} />}
+        {gateVisible && <UnlockGate gateId={gateId} password={password} setPassword={setPassword} error={error} onSubmit={handleUnlock} isExiting={unlocked} isUnlocking={isUnlocking} />}
         {unlocked && lockedSections.map((section) => <section className="vehicle-recovery-content-section" id={getCaseStudySectionId(project.slug, section.id)} key={section.id}><div className="section-heading"><h2>{section.title}</h2></div><div className="vehicle-recovery-rich-content" dangerouslySetInnerHTML={{ __html: section.html }} /></section>)}
       </div>
     </div>
@@ -94,7 +102,7 @@ function VehicleBlock({ block }: { block: VehicleRecoveryBlock }) {
   return <p>{block.text}</p>
 }
 
-function UnlockGate({ gateId, password, setPassword, error, onSubmit, isExiting }: { gateId: string; password: string; setPassword: (value: string) => void; error: string; onSubmit: (event: FormEvent<HTMLFormElement>) => void; isExiting: boolean }) {
+function UnlockGate({ gateId, password, setPassword, error, onSubmit, isExiting, isUnlocking }: { gateId: string; password: string; setPassword: (value: string) => void; error: string; onSubmit: (event: FormEvent<HTMLFormElement>) => void; isExiting: boolean; isUnlocking: boolean }) {
   const [showPassword, setShowPassword] = useState(false)
 
   useEffect(() => {
@@ -131,7 +139,7 @@ function UnlockGate({ gateId, password, setPassword, error, onSubmit, isExiting 
             <input id="case-study-password" type={showPassword ? "text" : "password"} autoComplete="off" value={password} onChange={(event) => setPassword(event.target.value)} required />
             <button type="button" onClick={() => setShowPassword((visible) => !visible)} aria-label={showPassword ? "Hide password" : "Show password"}>{showPassword ? "Hide" : "Show"}</button>
           </div>
-          <Button type="submit">Unlock</Button>
+          <Button type="submit" disabled={isUnlocking}>{isUnlocking ? "Checking…" : "Unlock"}</Button>
           {error && <p className="case-study-gate-error" role="alert">{error}</p>}
         </form>
         <a className="case-study-back-button" href="/">Back to home</a>
