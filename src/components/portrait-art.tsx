@@ -96,6 +96,6 @@ export function PortraitArt({ milestones, activeMilestone, revealComplete, onSel
   return <div className={`portrait-art${revealComplete ? " is-complete" : ""}`} ref={host} aria-label="Original connect-the-dots portrait with 3,946 nodes and 11,279 connections">
     <div className="portrait-final-glow" aria-hidden="true" />
     <div className="portrait-svg-mount" dangerouslySetInnerHTML={{ __html: svgMarkup }} />
-    {revealComplete && <div className="portrait-finish" aria-live="polite"><span className="portrait-finish-mark"><i /><i /><i /></span><span>THE PORTRAIT EMERGES</span></div>}
+    {revealComplete && <div className="portrait-finish" aria-live="polite"><span className="portrait-finish-mark"><i /><i /><i /></span><span>The portrait emerges</span></div>}
   </div>
 }

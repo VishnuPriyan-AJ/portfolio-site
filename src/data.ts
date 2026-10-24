@@ -2,6 +2,7 @@ export type ProjectSection = { heading: string; body: string }
 export type CaseStudy = {
   slug: string
   title: string
+  category: "live" | "concept"
   summary: string
   tags: string[]
   image: string
@@ -24,64 +25,75 @@ export const site = {
   caseStudiesIntro: "How I work through problems, systems and people",
   caseStudies: [
     {
-      slug: "payments-gateway",
-      title: "Payments Gateway",
-      summary:
-        "A service that routes card payments across providers, retries failures safely and gives support teams one place to trace a transaction.",
-      tags: ["Fintech", "Microservices"],
+      slug: "vehicle-recovery-console",
+      title: "Vehicle Recovery Console",
+      category: "live",
+      summary: "Case study content coming soon. Add the product context, decisions and measurable outcome here.",
+      tags: ["Product", "Operations"],
       image: "",
       sections: [
-        { heading: "Problem", body: "Failed payments were retried by hand and nobody could see where a transaction stopped." },
-        { heading: "Approach", body: "Event-driven services with idempotent handlers, a single trace ID per payment and a read model for support." },
-        { heading: "Outcome", body: "Replace this with the measurable result, for example fewer manual retries or faster resolution time." },
+        { heading: "Problem", body: "Add the problem this project addressed." },
+        { heading: "Approach", body: "Add the key decisions and implementation details." },
+        { heading: "Outcome", body: "Add the measurable result or impact." },
       ],
     },
     {
-      slug: "inventory-platform",
-      title: "Inventory Platform",
-      summary:
-        "Real-time stock visibility across warehouses, with alerts when levels drift from what the system expects.",
-      tags: ["Backend", "Real-time"],
+      slug: "fuse-ai",
+      title: "Fuse AI",
+      category: "live",
+      summary: "Case study content coming soon. Add the product context, decisions and measurable outcome here.",
+      tags: ["AI", "Product"],
       image: "",
       sections: [
-        { heading: "Problem", body: "Describe what was broken or missing." },
-        { heading: "Approach", body: "Describe the decisions you made and why." },
-        { heading: "Outcome", body: "Describe what changed because of it." },
+        { heading: "Problem", body: "Add the problem this project addressed." },
+        { heading: "Approach", body: "Add the key decisions and implementation details." },
+        { heading: "Outcome", body: "Add the measurable result or impact." },
       ],
     },
     {
-      slug: "storefront-rebuild",
-      title: "Storefront Rebuild",
-      summary:
-        "Rebuilt a legacy shop front end so pages load quickly, search finds things and checkout has fewer steps.",
-      tags: ["React", "Performance"],
+      slug: "netx360",
+      title: "Netx360",
+      category: "live",
+      summary: "Case study content coming soon. Add the product context, decisions and measurable outcome here.",
+      tags: ["Platform", "Systems"],
       image: "",
       sections: [
-        { heading: "Problem", body: "Describe what was broken or missing." },
-        { heading: "Approach", body: "Describe the decisions you made and why." },
-        { heading: "Outcome", body: "Describe what changed because of it." },
+        { heading: "Problem", body: "Add the problem this project addressed." },
+        { heading: "Approach", body: "Add the key decisions and implementation details." },
+        { heading: "Outcome", body: "Add the measurable result or impact." },
       ],
     },
     {
-      slug: "chat-ordering",
-      title: "Chat Ordering Bot",
-      summary:
-        "A conversational flow that lets customers browse a catalogue, build a cart and pay without leaving the chat.",
-      tags: ["Conversational", "API"],
+      slug: "lion-muthu-comics",
+      title: "Lion Muthu Comics",
+      category: "concept",
+      summary: "Concept case study content coming soon. Add the concept, process and intended outcome here.",
+      tags: ["Concept", "Editorial"],
       image: "",
       sections: [
-        { heading: "Problem", body: "Describe what was broken or missing." },
-        { heading: "Approach", body: "Describe the decisions you made and why." },
-        { heading: "Outcome", body: "Describe what changed because of it." },
+        { heading: "Problem", body: "Add the opportunity or idea behind this concept." },
+        { heading: "Approach", body: "Add the exploration and design decisions." },
+        { heading: "Outcome", body: "Add the intended result or learning." },
+      ],
+    },
+    {
+      slug: "outfit",
+      title: "Outfit",
+      category: "concept",
+      summary: "Concept case study content coming soon. Add the concept, process and intended outcome here.",
+      tags: ["Concept", "Product"],
+      image: "",
+      sections: [
+        { heading: "Problem", body: "Add the opportunity or idea behind this concept." },
+        { heading: "Approach", body: "Add the exploration and design decisions." },
+        { heading: "Outcome", body: "Add the intended result or learning." },
       ],
     },
   ] satisfies CaseStudy[],
-  explorationsTitle: "Smaller projects, same curiosity",
   explorations: [
-    { title: "CLI log viewer", tag: "Tooling", url: "#" },
-    { title: "Rate limiter demo", tag: "Backend", url: "#" },
-    { title: "Kanban toy", tag: "React", url: "#" },
-    { title: "Query visualiser", tag: "Data", url: "#" },
+    { title: "Logo design", tag: "Skill area", url: "#", category: "exploration" },
+    { title: "Branding and packaging", tag: "Skill area", url: "#", category: "exploration" },
+    { title: "3D modelling and rendering", tag: "Skill area", url: "#", category: "exploration" },
   ],
   feature: {
     title: "Currently exploring",
