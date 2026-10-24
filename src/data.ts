@@ -9,10 +9,10 @@ export type CaseStudy = {
 }
 
 export const site = {
-  name: "Your Name",
+  name: "Priyan Portfolio",
   role: "Software Developer",
-  title: "Your Name | Portfolio",
-  description: "Portfolio of selected projects, case studies and experiments.",
+  title: "Priyan Portfolio",
+  description: "Priyan Portfolio of selected projects, case studies and experiments.",
   intro:
     "Software developer with 4+ years building backend and full-stack products. I own work from first conversation to production and care about the numbers it moves afterwards.",
   resumeUrl: "assets/resume.pdf",

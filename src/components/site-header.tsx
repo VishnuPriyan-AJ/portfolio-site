@@ -42,7 +42,9 @@ export function SiteHeader({ project = false }: { project?: boolean }) {
     <header className="site-header sticky top-0 z-50 border-b border-border/70 bg-background/85 backdrop-blur-xl">
       <div className="container-shell flex h-16 items-center justify-between gap-4">
         <a className="brand-link" href="index.html" aria-label={`${site.name}, home`}>
-          <span className="brand-mark" aria-hidden="true">{site.name.charAt(0)}</span>
+          <span className="brand-mark" aria-hidden="true">
+            <img src={`${import.meta.env.BASE_URL}favicon.png`} alt="" />
+          </span>
           <span>{site.name}</span>
         </a>
         <nav className="hidden items-center gap-1 md:flex" aria-label="Main navigation">
