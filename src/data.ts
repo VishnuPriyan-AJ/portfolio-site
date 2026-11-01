@@ -26,18 +26,17 @@ export function getCaseStudySectionId(projectSlug: string, sectionId: string) {
 
 export const site = {
   name: "Priyan Portfolio",
-  role: "Software Developer",
-  title: "Priyan Portfolio",
+  role: "Product Designer",
+  title: "Vishnu Priyan A J — Product Designer",
   description: "Priyan Portfolio of selected projects, case studies and experiments.",
-  intro:
-    "Software developer with 4+ years building backend and full-stack products. I own work from first conversation to production and care about the numbers it moves afterwards.",
+  intro: "Life is an unexplored map. Here’s the part I’ve explored so far.",
   resumeUrl: "assets/resume.pdf",
   email: "you@example.com",
   links: [
     { label: "LinkedIn", url: "https://www.linkedin.com/in/your-handle" },
     { label: "GitHub", url: "https://github.com/your-handle" },
   ],
-  caseStudiesIntro: "How I work through problems, systems and people",
+  caseStudiesIntro: "A conventional route to the work, whenever you want to skip the map.",
   caseStudies: [
     {
       slug: "vehicle-recovery-console",
@@ -45,7 +44,7 @@ export const site = {
       category: "live",
       summary: "A 0→1 product that replaced a broken, 5-tool manual recovery workflow, cutting per-vehicle time from 1–2 hours to 10–15 minutes.",
       tags: ["Product", "Operations"],
-      image: "",
+      image: "vehicle-recovery-cover.png",
       sections: [],
     },
     {
@@ -63,7 +62,7 @@ export const site = {
       category: "live",
       summary: "Case study content coming soon. Add the product context, decisions and measurable outcome here.",
       tags: ["Platform", "Systems"],
-      image: "",
+      image: "netx360-cover.png",
       sections: [],
     },
     {
