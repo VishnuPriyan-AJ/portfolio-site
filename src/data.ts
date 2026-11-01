@@ -44,7 +44,7 @@ export const site = {
       category: "live",
       summary: "A 0→1 product that replaced a broken, 5-tool manual recovery workflow, cutting per-vehicle time from 1–2 hours to 10–15 minutes.",
       tags: ["Product", "Operations"],
-      image: "",
+      image: "vehicle-recovery-cover.png",
       sections: [],
     },
     {
@@ -62,7 +62,7 @@ export const site = {
       category: "live",
       summary: "Case study content coming soon. Add the product context, decisions and measurable outcome here.",
       tags: ["Platform", "Systems"],
-      image: "",
+      image: "netx360-cover.png",
       sections: [],
     },
     {

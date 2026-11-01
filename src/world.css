@@ -16,3 +16,159 @@
 .world-reset { position: absolute; z-index: 4; right: 1rem; bottom: 1rem; display: inline-flex; align-items: center; gap: .35rem; border: 1px solid hsl(150 20% 27% / .25); border-radius: 999px; background: hsl(42 80% 96% / .88); padding: .5rem .7rem; color: hsl(150 24% 20%); cursor: pointer; font-size: .68rem; box-shadow: 0 4px 12px hsl(150 25% 25% / .12); }.world-reset:hover { background: #fff0b6; }.world-reset:focus-visible, .world-journey-list button:focus-visible { outline: 3px solid #a26b2a; outline-offset: 3px; }
 .world-journey-list { position: absolute; z-index: 4; bottom: 1rem; left: 1rem; display: flex; max-width: calc(100% - 7rem); gap: .35rem; overflow-x: auto; padding: .15rem; scrollbar-width: thin; }.world-journey-list button { flex: none; border: 1px solid hsl(150 20% 27% / .2); border-radius: 999px; background: hsl(42 80% 96% / .78); padding: .45rem .6rem; color: hsl(150 24% 20%); cursor: pointer; font-size: .62rem; }.world-journey-list button[aria-pressed="true"] { background: #fff0b6; border-color: #a26b2a; }.world-journey-list span { margin-left: .2rem; }.world-webgl-fallback { display: grid; height: 100%; place-items: center; padding: 2rem; color: hsl(150 24% 20%); text-align: center; }
 @media (max-width: 600px) { .world-3d-frame { height: 600px; }.world-map-toolbar { font-size: .5rem; }.world-map-toolbar span:last-child { display: none; }.world-journey-list { bottom: .75rem; left: .75rem; max-width: calc(100% - 6rem); }.world-reset { right: .75rem; bottom: .75rem; } }
+
+/* Island floating detail card */
+.world-island-detail {
+  position: absolute;
+  top: 50%;
+  left: 100%;
+  transform: translateY(-50%);
+  margin-left: 24px;
+  width: 320px;
+  max-width: 85vw;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  border-radius: 1.1rem;
+  padding: 1.4rem;
+  box-shadow: 0 20px 45px -12px rgba(20, 35, 25, 0.35), 0 0 0 1px rgba(0, 0, 0, 0.05);
+  color: #1a2a20;
+  pointer-events: auto;
+  user-select: text;
+  z-index: 999;
+}
+
+.world-island-detail-number {
+  color: #a26b2a;
+  font-family: "Geist", monospace;
+  font-size: 0.72rem;
+  font-weight: 700;
+}
+
+.world-island-detail-category {
+  color: #4a6855;
+  font-family: "Geist", monospace;
+  font-size: 0.64rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-top: 0.2rem;
+}
+
+.world-island-detail h3 {
+  margin-top: 0.4rem;
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #14241b;
+  letter-spacing: -0.03em;
+  line-height: 1.25;
+}
+
+.world-island-detail-date {
+  margin-top: 0.25rem;
+  color: #a26b2a;
+  font-size: 0.72rem;
+  font-weight: 600;
+}
+
+.world-island-detail-desc {
+  margin-top: 0.8rem;
+  color: #3b5043;
+  font-size: 0.84rem;
+  line-height: 1.65;
+}
+
+.world-island-detail-links {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-top: 1.1rem;
+  padding-top: 0.9rem;
+  border-top: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.world-island-detail-links > span {
+  font-family: "Geist", monospace;
+  font-size: 0.58rem;
+  color: #647b6e;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.world-island-detail-links a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.45rem 0.8rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  border-radius: 0.55rem;
+  background: #14241b;
+  color: #ffffff;
+  text-decoration: none;
+  transition: background 0.15s ease;
+}
+
+.world-island-detail-links a:hover {
+  background: #254232;
+}
+
+/* World map overlay card inside map frame */
+.world-map-overlay-card {
+  position: absolute;
+  top: 3.5rem;
+  right: 1.5rem;
+  width: 320px;
+  max-width: calc(100% - 3rem);
+  background: rgba(255, 255, 255, 0.96);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  border-radius: 1.1rem;
+  padding: 1.35rem 1.4rem;
+  box-shadow: 0 16px 40px -10px rgba(18, 38, 26, 0.22), 0 0 0 1px rgba(0, 0, 0, 0.05);
+  color: #17281d;
+  z-index: 5;
+  animation: overlayCardIn 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes overlayCardIn {
+  from {
+    opacity: 0;
+    transform: translateY(-8px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.world-overlay-close {
+  display: grid;
+  width: 1.85rem;
+  height: 1.85rem;
+  place-items: center;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 0.5rem;
+  background: transparent;
+  color: #556c5e;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.world-overlay-close:hover {
+  background: rgba(0, 0, 0, 0.05);
+  color: #112217;
+}
+
+@media (max-width: 600px) {
+  .world-map-overlay-card {
+    top: auto;
+    bottom: 4.5rem;
+    right: 1rem;
+    left: 1rem;
+    width: auto;
+    max-height: 48%;
+    overflow-y: auto;
+  }
+}
